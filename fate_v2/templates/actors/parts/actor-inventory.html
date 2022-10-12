@@ -1,0 +1,166 @@
+<ol class="items-list inventory-list">
+
+    {{!-- Money --}}
+    <li class="currency flexrow">
+        <h3>
+            Waluta
+            <a class="currency-convert rollable" data-action="convertCurrency" title="Konwertuj walutę">
+                <i class="fas fa-coins"></i>
+            </a>
+        </h3>
+        <label class="denomination zloto">Złoto</label>
+        <input type="number" name="data.pieniadze.zloto" value="{{data.pieniadze.zloto}}" data-dtype="Number"/>
+        <label class="denomination srebro">Srebro</label>
+        <input type="number" name="data.pieniadze.srebro" value="{{data.pieniadze.srebro}}" data-dtype="Number"/>
+        <label class="denomination miedz">Miedź</label>
+        <input type="number" name="data.pieniadze.miedz" value="{{data.pieniadze.miedz}}" data-dtype="Number"/>
+    </li>
+
+    {{!-- Weapons --}}
+    <li class="flexcol">
+        <div class="items-header flexrow first">
+            <h3 class="item-name flexrow">Bronie</h3>
+            <div class="item-detail item-number">Ilosc</div>
+            {{#if owner}}
+            <div class="item-controls flexrow">
+                <a class="item-control item-create" data-type="bron">
+                    <i class="fas fa-plus"></i> Dodaj
+                </a>
+            </div>
+            {{/if}}
+        </div>
+        <ol class="item-list">
+            {{#each bronie as |item id|}}
+                <li class="item flexrow {{section.css}}" data-item-id="{{item._id}}">
+                    <div class="item-name flexrow rollable rollable_text">
+                        <div class="item-image" tabindex="0" role="button" aria-label="{{item.name}}" style="background-image: url('{{item.img}}')"></div>
+                        <h4>{{item.name}}</h4>
+                        <div class="item_number">{{item.data.ilosc}}</div>
+                    </div>
+                    {{#if ../owner}}
+                        <div class="item-controls flexrow">
+                        {{#if data.zalozony}}
+                            <a class="item-control item-toggle active"><i class="fas fa-shield-alt"></i></a>
+                        {{else}}
+                            <a class="item-control item-toggle"><i class="fas fa-shield-alt"></i></a>
+                        {{/if}}
+                            <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete"><i class="fas fa-trash"></i></a>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ol>
+    </li>
+
+    {{!-- Armors --}}
+    <li class="flexcol">
+        <div class="items-header flexrow">
+            <h3 class="item-name flexrow">Zbroje</h3>
+            <div class="item-detail item-number">Ilosc</div>
+            {{#if owner}}
+            <div class="item-controls flexrow">
+                <a class="item-control item-create" data-type="zbroja">
+                    <i class="fas fa-plus"></i> Dodaj
+                </a>
+            </div>
+            {{/if}}
+        </div>
+        <ol class="item-list">
+            {{#each zbroje as |item id|}}
+                <li class="item flexrow {{section.css}}" data-item-id="{{item._id}}">
+                    <div class="item-name flexrow rollable rollable_text">
+                        <div class="item-image" tabindex="0" role="button" aria-label="{{item.name}}" style="background-image: url('{{item.img}}')"></div>
+                        <h4>{{item.name}}</h4>
+                        <div class="item_number">{{item.data.ilosc}}</div>
+                    </div>
+                    {{#if ../owner}}
+                        <div class="item-controls flexrow">
+                        {{#if data.zalozony}}
+                            <a class="item-control item-toggle active"><i class="fas fa-shield-alt"></i></a>
+                        {{else}}
+                            <a class="item-control item-toggle"><i class="fas fa-shield-alt"></i></a>
+                        {{/if}}
+                            <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete"><i class="fas fa-trash"></i></a>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ol>
+    </li>
+
+    {{!-- Mikstury --}}
+    <li class="flexcol">
+        <div class="items-header flexrow">
+            <h3 class="item-name flexrow">Mikstury</h3>
+            <div class="item-detail item-number">Ilosc</div>
+            {{#if owner}}
+            <div class="item-controls flexrow">
+                <a class="item-control item-create" data-type="mikstura">
+                    <i class="fas fa-plus"></i> Dodaj
+                </a>
+            </div>
+            {{/if}}
+        </div>
+        <ol class="item-list">
+            {{#each mikstury as |item id|}}
+                <li class="item flexrow {{section.css}}" data-item-id="{{item._id}}">
+                    <div class="item-name flexrow rollable rollable_text">
+                        <div class="item-image" tabindex="0" role="button" aria-label="{{item.name}}" style="background-image: url('{{item.img}}')"></div>
+                        <h4>{{item.name}}</h4>
+                        <div class="item_number">{{item.data.ilosc}}</div>
+                    </div>
+                    {{#if ../owner}}
+                        <div class="item-controls flexrow">
+                        {{#if data.zalozony}}
+                            <a class="item-control item-toggle active"><i class="fas fa-shield-alt"></i></a>
+                        {{else}}
+                            <a class="item-control item-toggle"><i class="fas fa-shield-alt"></i></a>
+                        {{/if}}
+                            <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete"><i class="fas fa-trash"></i></a>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ol>
+    </li>
+
+    {{!-- Items --}}
+    <li class="flexcol">
+        <div class="items-header flexrow">
+            <h3 class="item-name flexrow">Przedmioty</h3>
+            <div class="item-detail item-number">Ilosc</div>
+            {{#if owner}}
+            <div class="item-controls flexrow">
+                <a class="item-control item-create" data-type="przedmiot">
+                    <i class="fas fa-plus"></i> Dodaj
+                </a>
+            </div>
+            {{/if}}
+        </div>
+        <ol class="item-list">
+            {{#each przedmioty as |item id|}}
+                <li class="item flexrow {{section.css}}" data-item-id="{{item._id}}">
+                    <div class="item-name flexrow rollable rollable_text">
+                        <div class="item-image" tabindex="0" role="button" aria-label="{{item.name}}" style="background-image: url('{{item.img}}')"></div>
+                        <h4>{{item.name}}</h4>
+                        <div class="item_number">{{item.data.ilosc}}</div>
+                    </div>
+                    {{#if ../owner}}
+                        <div class="item-controls flexrow">
+                        {{#if data.zalozony}}
+                            <a class="item-control item-toggle active"><i class="fas fa-shield-alt"></i></a>
+                        {{else}}
+                            <a class="item-control item-toggle"><i class="fas fa-shield-alt"></i></a>
+                        {{/if}}
+                            <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete"><i class="fas fa-trash"></i></a>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ol>
+    </li>
+</ol>

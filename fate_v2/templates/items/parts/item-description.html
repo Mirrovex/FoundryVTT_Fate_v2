@@ -1,0 +1,28 @@
+<div class="tab flexrow active" data-group="primary" data-tab="description">
+
+    <div class="item-properties">
+        <div class="form-group">
+            <label>Ilosc</label>
+            <input type="text" name="data.ilosc" value="{{data.ilosc}}" data-dtype="Number"/>
+        </div>
+
+        <div class="form-group">
+            <label>Cena</label>
+            <input type="text" name="data.cena" value="{{data.cena}}" data-dtype="Number"/>
+        </div>
+
+        {{#unless (check data.typ "")}}
+        <ol class="properties-list">
+            <li>{{data.typ}}</li>
+        </ol>
+        {{/unless}}
+
+        <!--<ol class="properties-list">
+            {{#each itemProperties}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ol>-->
+    </div>
+
+    {{editor content=data.opis target="data.opis" button=true owner=owner editable=editable}}
+</div>

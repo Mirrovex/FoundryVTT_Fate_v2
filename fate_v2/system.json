@@ -1,0 +1,22 @@
+{
+    "name": "fate_v2",
+    "title": "Fate_v2",
+    "description": "description",
+    "version": "1.0.0",
+    "templateVersion": 1,
+    "author": "Mirrovex",
+    "minimumCoreVersion": "0.8.9",
+    "scripts": [],
+    "esmodules": ["system.js"],
+    "styles": ["style.css"],
+    "packs": [],
+    "languages": [],
+    "socket": false,
+    "gridDistance": 5,
+    "gridUnits": "m",
+    "primaryTokenAttribute": null,
+    "secondaryTokenAttribute": null,
+    "url": "https://github.com/Mirrovex/Fate_FoundryVTT/tree/main/fate_v2",
+    "manifest": "https://github.com/Mirrovex/Fate_FoundryVTT/blob/main/fate_v2/system.json",
+    "download": "https://github.com/Mirrovex/Fate_FoundryVTT/blob/main/fate_v2.rar"
+}

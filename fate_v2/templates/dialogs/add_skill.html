@@ -1,0 +1,11 @@
+<form>
+    <div class="flexrow dialog_div">
+        <label class="dialog_label">Umiejętność:</label>
+        <select name="skill_name" class="dialog_select">
+            {{#each CONFIG.fate_v2.umiejetnosci as |name skill|}}
+                <option value="{{skill}}">{{name}}</option>
+			{{/each}}
+        </select>
+        <input name="skill_bonus" class="skill_bonus dialog_input" type="number" value="0" data-dtype="Number"/>
+    </div>
+</form>

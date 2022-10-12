@@ -1,0 +1,11 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Item Sheet Header --}}
+    <header class="flexrow card_header">
+        <img class="card_img" src="{{img}}"/>
+        <div class="card_name">{{name}}</div>
+    </header>
+    <body>
+        {{editor content=data.opis target="data.opis"}}
+    </body>
+</form>

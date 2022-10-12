@@ -1,0 +1,10 @@
+<form>
+    <div class="flexrow dialog_div">
+        <label class="dialog_label">Presja {{up pression_id}}:</label>
+        <select name="pression_box" class="dialog_select">
+            {{#each CONFIG.fate_v2.presja as |box pression|}}
+                <option value="{{pression}}">{{box}}</option>
+			{{/each}}
+        </select>
+    </div>
+</form>

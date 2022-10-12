@@ -1,0 +1,115 @@
+{
+    "Actor": {
+        "types": ["gracz"],
+        "gracz": {
+            "umiejetnosci": {
+                "umiej0": ["inne"]
+            },
+            "max_skill": 4,
+            "presja": {
+                "umyslowa": {},
+                "fizyczna": {},
+                "duchow": {},
+                "cienia": {}
+            },
+            "add_box": [1,2,3,4],
+            "los": {
+                "value": 3,
+                "max": 3
+            },
+            "pieniadze": {
+                "miedz": 0,
+                "srebro": 0,
+                "zloto": 0
+            },
+            "lvl": 1,
+            "rasa": "",
+            "wiek": "",
+            "pochodzenie": "",
+            "bonus": 0,
+            "zbroja": {
+                "value": 0,
+                "from": ""
+            },
+            "atak": {
+                "value": 0,
+                "from": ""
+            },
+            "inicjatywa": {
+                "value": 0,
+                "from": "Zręczność"
+            }
+        }
+    },
+    "Item": {
+        "types":["bron", "zbroja", "mikstura", "przedmiot", "aspekt", "sztuczka", "konsekwencja", "atut"],
+        "bron": {
+            "opis": "",
+            "zalozony": false,
+            "ilosc": 1,
+            "cena": 0,
+            "typ": "",
+            "bonus": 0,
+            "zuzywalne": false,
+            "consume": {
+                "target": null,
+                "amount": 1
+            }
+        },
+        "zbroja": {
+            "opis": "",
+            "zalozony": false,
+            "ilosc": 1,
+            "cena": 0,
+            "typ": "",
+            "bonus": 0,
+            "zuzywalne": false
+        },
+        "mikstura": {
+            "opis": "",
+            "ilosc": 1,
+            "cena": 0,
+            "typ": "",
+            "bonus": 0,
+            "zuzywalne": true,
+            "consume": {
+                "target": null,
+                "amount": 1
+            }
+        },
+        "przedmiot": {
+            "opis": "",
+            "zalozony": false,
+            "ilosc": 1,
+            "cena": 0,
+            "typ": "",
+            "bonus": 0,
+            "zuzywalne": false
+        },
+        "aspekt": {
+            "opis": "",
+            "info": "",
+            "typ": "",
+            "bonus": 0
+        },
+        "sztuczka": {
+            "opis": "",
+            "info": "",
+            "typ": "",
+            "bonus": 0
+        },
+        "atut": {
+            "opis": "",
+            "info": "",
+            "typ": "",
+            "bonus": 0
+        },
+        "konsekwencja": {
+            "opis": "",
+            "info": "",
+            "typ": "",
+            "bonus": 0,
+            "uzyta": false
+        }
+    }
+}

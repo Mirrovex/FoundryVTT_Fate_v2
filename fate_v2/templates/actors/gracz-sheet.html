@@ -1,0 +1,354 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+
+        <section class="header-details flexrow">
+            {{> "systems/fate_v2/templates/actors/parts/actor-warnings.html"}}
+
+            <h1 class="charname">
+                <input name="name" type="text" value="{{actor.name}}" placeholder="Imie" />
+            </h1>
+
+            <aside class="header-exp flexcol">
+                <div class="charlevel" title="{{multiclassLabels}}">
+                    <label>Poziom:</label>
+                </div>
+
+                <div class="experience flexrow">
+                    <input class="level" name="data.lvl" type="text" value="{{data.lvl}}" placeholder="0"
+                        data-dtype="Number" />
+                </div>
+            </aside>
+
+            {{!-- Character Summary --}}
+            <ul class="summary flexrow">
+                <li>
+                    <input type="text" name="data.rasa" value="{{data.rasa}}" placeholder="Rasa" />
+                </li>
+                <li>
+                    <input type="text" name="data.wiek" value="{{data.wiek}}" placeholder="Wiek" />
+                </li>
+                <li>
+                    <input type="text" name="data.pochodzenie" value="{{data.pochodzenie}}" placeholder="Pochodzenie" />
+                </li>
+            </ul>
+
+            {{!-- Header Attributes --}}
+            <ul class="attributes flexrow">
+                <li class="attribute weapon">
+                    <h4 class="attribute-name box-title">Atak:</h4>
+                    <div class="attribute-value attributable">
+                        <span>{{numberFormat data.atak.value decimals=0 sign=true}}</span>
+                    </div>
+                    <footer class="attribute-footer">
+                        {{data.atak.from}}
+                    </footer>
+                </li>
+
+                <li class="attribute armor">
+                    <h4 class="attribute-name box-title">Zbroja:</h4>
+                    <div class="attribute-value attributable">
+                        <span>{{numberFormat data.zbroja.value decimals=0 sign=true}}</span>
+                    </div>
+                    <footer class="attribute-footer">
+                        {{data.zbroja.from}}
+                    </footer>
+                </li>
+
+                <li class="attribute initiative">
+                    <h4 class="attribute-name box-title rollable" data-action="rollInitiative">Inicjatywa:</h4>
+                    <div class="attribute-value">
+                        <span>{{numberFormat data.inicjatywa.value decimals=0 sign=true}}</span>
+                    </div>
+                    <footer class="attribute-footer">
+                        {{data.inicjatywa.from}}
+                    </footer>
+                </li>
+
+                <li class="attribute fate_points_frame">
+                    <h4 class="attribute-name box-title">Punkty Losu</h4>
+                    <a class="config-button rollable fate_config" data-action="skill"><i class="fas fa-cog"></i></a>
+                    <div class="attribute-value fate_points">
+                        <span class="now_szczescie szczescie">{{data.los.value}}</span>
+                        <span class="sep"> / </span>
+                        <span class="max_szczescie szczescie">{{data.los.max}}</span>
+                    </div>
+                    <footer class="attribute-footer">
+                        <a class="rest luck luck_plus"><i class="fas fa-plus icon"></i></a>
+                        <a class="rest luck luck_minus"><i class="fas fa-minus icon"></i></a>
+                    </footer>
+                </li>
+            </ul>
+        </section>
+    </header>
+
+    {{!-- Character Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+        <a class="item active" data-tab="attributes">Cechy</a>
+        <a class="item" data-tab="inventory">Ekwipunek</a>
+        <a class="item" data-tab="biography">Biografia</a>
+    </nav>
+
+    {{!-- Character Sheet Body --}}
+    <section class="sheet-body">
+
+        <div class="tab attributes flexrow" data-group="primary" data-tab="attributes">
+            <div class="flexcol left_div">
+
+                {{!-- Umiejetnosci --}}
+                <ul class="ability-scores flexcol">
+                    <div class="skill-name-controls flexrow">
+                        <h4 class="title">Umiejętności</h4>
+                        <a class="config-button rollable skill_config" data-action="skill"><i class="fas fa-cog"></i></a>
+                    </div>
+                    {{#each (sort data) as |list id|}}
+                    <div class="skill_div flexrow">
+                        <h4 class="bonus">{{change_bonus id}}</h4>
+                        <li class="skill_line flexrow">
+                            {{#each list as |skill|}}
+                            <div class="skill_name rollable flexrow">
+                                <p class="{{id}} roll_skill" data-skill="{{skill}}" data-bonus="{{id}}">{{up skill}}</p>
+                                <a class="item-control rollable remove skill-delete" data-skill_id="{{id}}" data-skill_name="{{skill}}"><i class="fas fa-trash"></i></a>
+                            </div>
+                            {{/each}}
+                        </li>
+                    </div>
+                    {{/each}}
+                </ul>
+
+                {{!-- Presja --}}
+                <footer class="ability-modifiers bottom">
+                    <ul class="attributes flexcol">
+                        <div class="base_press flexrow">
+                            <li class="attribute wola">
+                                <div class="flexrow">
+                                    <h4 class="attribute-name box-title">Presja Umysłowa</h4>
+                                    <a class="rollable edit_pression" data-pression_id="umyslowa">
+                                        <i class="fas fa-pen" id="edit_presiion"></i>
+                                    </a>
+                                </div>
+                                <div class="flexrow press_box">
+                                    {{#each data.presja.umyslowa as |presja id|}}
+                                    <label class="pression_number">{{number_pression id}}</label>
+                                    <input name="data.presja.umyslowa.{{id}}" type="checkbox" class="pression_box" id="pression_box" {{checked presja}} />
+                                    {{/each}}
+                                </div>
+                            </li>
+                            <li class="attribute budowa">
+                                <div class="flexrow">
+                                    <h4 class="attribute-name box-title">Presja Fizyczna</h4>
+                                    <a class="rollable edit_pression" data-pression_id="fizyczna">
+                                        <i class="fas fa-pen" id="edit_presiion"></i>
+                                    </a>
+                                </div>
+                                <div class="flexrow press_box">
+                                    {{#each data.presja.fizyczna as |presja id|}}
+                                    <label class="pression_number">{{number_pression id}}</label>
+                                    <input name="data.presja.fizyczna.{{id}}" type="checkbox" class="pression_box" id="pression_box" {{checked presja}} />
+                                    {{/each}}
+                                </div>
+                            </li>
+                        </div>
+                        <div class="mage_press flexrow">
+                            <li class="attribute duchy">
+                                <div class="flexrow">
+                                    <h4 class="attribute-name box-title">Presja Duchów</h4>
+                                    <a class="rollable edit_pression" data-pression_id="duchow">
+                                        <i class="fas fa-pen" id="edit_presiion"></i>
+                                    </a>
+                                </div>
+                                <div class="flexrow press_box">
+                                    {{#each data.presja.duchow as |presja id|}}
+                                    <label class="pression_number">{{number_pression id}}</label>
+                                    <input name="data.presja.duchow.{{id}}" type="checkbox" class="pression_box" id="pression_box" {{checked presja}} />
+                                    {{/each}}
+                                </div>
+                            </li>
+                            <li class="attribute cien">
+                                <div class="flexrow">
+                                    <h4 class="attribute-name box-title">Presja Cienia</h4>
+                                    <a class="rollable edit_pression" data-pression_id="cienia">
+                                        <i class="fas fa-pen" id="edit_presiion"></i>
+                                    </a>
+                                </div>
+                                <div class="flexrow press_box">
+                                    {{#each data.presja.cienia as |presja id|}}
+                                    <label class="pression_number">{{number_pression id}}</label>
+                                    <input name="data.presja.cienia.{{id}}" type="checkbox" class="pression_box" id="pression_box" {{checked presja}} />
+                                    {{/each}}
+                                </div>
+                            </li>
+                        </div>
+                    </ul>
+                </footer>
+            </div>
+            <section class="flexcol cechy-dodatki">
+                <div class="center-pane flexcol">
+                    {{!-- Body Attributes --}}
+                    <ol class="items-list inventory-list">
+
+                        {{!-- Aspekty --}}
+                        <li class="flexcol">
+                            <div class="items-header flexrow first">
+                                <h3 class="item-name flexrow">Aspekty</h3>
+                                {{#if owner}}
+                                <div class="item-controls flexrow">
+                                    <a class="item-control item-create" data-type="aspekt">
+                                        <i class="fas fa-plus"></i> Dodaj
+                                    </a>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <ol class="item-list">
+                                {{#each aspekty as |item id|}}
+                                <li class="item flexrow {{section.css}}" data-item-id="{{item._id}}">
+                                    <div class="item-name flexrow rollable rollable_text">
+                                        <div class="item-image" tabindex="0" role="button" aria-label="{{item.name}}"
+                                            style="background-image: url('{{item.img}}')"></div>
+                                        <h4>{{item.name}}</h4>
+                                    </div>
+                                    {{#if ../owner}}
+                                    <div class="item-controls flexrow">
+                                        <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                    {{/if}}
+                                </li>
+                                {{/each}}
+                            </ol>
+                        </li>
+
+                        {{!-- Sztuczki --}}
+                        <li class="flexcol">
+                            <div class="items-header flexrow">
+                                <h3 class="item-name flexrow">Sztuczki</h3>
+                                {{#if owner}}
+                                <div class="item-controls flexrow">
+                                    <a class="item-control item-create" data-type="sztuczka">
+                                        <i class="fas fa-plus"></i> Dodaj
+                                    </a>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <ol class="item-list">
+                                {{#each sztuczki as |item id|}}
+                                <li class="item flexrow {{section.css}}" data-item-id="{{item._id}}">
+                                    <div class="item-name flexrow rollable rollable_text">
+                                        <div class="item-image" tabindex="0" role="button" aria-label="{{item.name}}"
+                                            style="background-image: url('{{item.img}}')"></div>
+                                        <h4>{{item.name}}</h4>
+                                    </div>
+                                    {{#if ../owner}}
+                                    <div class="item-controls flexrow">
+                                        <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                    {{/if}}
+                                </li>
+                                {{/each}}
+                            </ol>
+                        </li>
+
+                        {{!-- Konsekwencje --}}
+                        <li class="flexcol">
+                            <div class="items-header flexrow">
+                                <h3 class="item-name flexrow">Konsekwencje</h3>
+                                <div class="item-checked item-detail">Uzyta</div>
+                                {{#if owner}}
+                                <div class="item-controls flexrow">
+                                    <a class="item-control item-create" data-type="konsekwencja">
+                                        <i class="fas fa-plus"></i> Dodaj
+                                    </a>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <ol class="item-list">
+                                {{#each konsekwencje as |item id|}}
+                                <li class="item flexrow {{section.css}}" data-item-id="{{item._id}}">
+                                    <div class="item-name flexrow rollable rollable_text">
+                                        <div class="item-image" tabindex="0" role="button" aria-label="{{item.name}}"
+                                            style="background-image: url('{{item.img}}')"></div>
+                                        <h4>{{item.name}}</h4>
+                                        <div class="item-checkbox flexrow">
+                                            <label class="konsekwencja_number">{{number_konsekwencja item.data.typ}}</label>
+                                            <input class="konsekwencja_box" type="checkbox" class="konsekwencja_box" {{checked data.uzyta}} />
+                                        </div>
+                                        
+                                    </div>
+                                    {{#if ../owner}}
+                                    <div class="item-controls flexrow">
+                                        <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                    {{/if}}
+                                </li>
+                                {{/each}}
+                            </ol>
+                        </li>
+
+                        {{!-- Atuty --}}
+                        <li class="flexcol">
+                            <div class="items-header flexrow">
+                                <h3 class="item-name flexrow">Atuty</h3>
+                                {{#if owner}}
+                                <div class="item-controls flexrow">
+                                    <a class="item-control item-create" data-type="atut">
+                                        <i class="fas fa-plus"></i> Dodaj
+                                    </a>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <ol class="item-list">
+                                {{#each atuty as |item id|}}
+                                <li class="item flexrow {{section.css}}" data-item-id="{{item._id}}">
+                                    <div class="item-name flexrow rollable rollable_text">
+                                        <div class="item-image" tabindex="0" role="button" aria-label="{{item.name}}"
+                                            style="background-image: url('{{item.img}}')"></div>
+                                        <h4>{{item.name}}</h4>
+                                    </div>
+                                    {{#if ../owner}}
+                                    <div class="item-controls flexrow">
+                                        <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                    {{/if}}
+                                </li>
+                                {{/each}}
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        {{!-- Inventory Tab --}}
+        <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
+            {{> "systems/fate_v2/templates/actors/parts/actor-inventory.html" sections=inventory}}
+        </div>
+
+        {{!-- Biography Tab --}}
+        <div class="tab bio flexrow" data-group="primary" data-tab="biography">
+            <div class="flexcol bio_div">
+                <div class="opis note">
+                    <h3 class="tytul">Opis:</h3>
+                    {{editor content=data.bio.opis target="data.bio.opis" button=true owner=owner editable=editable
+                    rollData=rollData}}
+                </div>
+                <div class="historia note">
+                    <h3 class="tytul">Historia:</h3>
+                    {{editor content=data.bio.historia target="data.bio.historia" button=true owner=owner
+                    editable=editable rollData=rollData}}
+                </div>
+            </div>
+            <div class="bio_div">
+                <div class="notatki note">
+                    <h3 class="tytul">Notatki:</h3>
+                    {{editor content=data.bio.notatki target="data.bio.notatki" button=true owner=owner
+                    editable=editable rollData=rollData}}
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

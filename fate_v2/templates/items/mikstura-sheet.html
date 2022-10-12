@@ -1,0 +1,85 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Item Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+
+        <div class="header-details flexrow">
+            <h1 class="charname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Nazwa"/>
+            </h1>
+
+            <div class="item-subtitle">
+                <h4 class="item-type">{{itemType}}</h4>
+            </div>
+
+            <ul class="summary flexrow">
+                <li>
+                    {{data.actionType}}
+                </li>
+                <li>
+                    {{data.parts}}
+                </li>
+                <li>
+                    {{data.damage.versatile}}
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    {{!-- Item Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+        <a class="item active" data-tab="description">Opis</a>
+        <a class="item" data-tab="details">Detale</a>
+    </nav>
+
+    {{!-- Item Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Description Tab --}}
+        {{> "systems/fate_v2/templates/items/parts/item-description.html"}}
+
+        {{!-- Details Tab --}}
+        <div class="tab details" data-group="primary" data-tab="details">
+            <div class="flexrow properties_div">
+                <h3 class="form-header properties">Wlaściwości Mikstury</h3>
+
+                <div class="form-group select properies">
+                    <label>Mikstura Zużywalna</label>
+                    <input name="data.zuzywalne" type="checkbox" {{checked data.zuzywalne}} />
+                </div>
+            </div>
+
+            <div class="form-group select">
+                <label>Typ Broni</label>
+                <select name="data.typ">
+                    {{#select data.typ}}
+                    <option value=""></option>
+                    <option value="Dobry Efekt">Dobry Efekt</option>
+                    <option value="Zly Efekt">Zły Efekt</option>
+                    {{/select}}
+                </select>
+            </div>
+
+            <div class="form-group uses-per">
+                <label>Zużywanie</label>
+                <div class="form-fields">
+                    <select name="data.consume.target" style="width: 20%;">
+                        {{#select data.consume.target}}
+                        <option value=""></option>
+                        {{#each abilityConsumptionTargets as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                    <input type="text" name="data.consume.amount" value="{{data.consume.amount}}" data-dtype="Number"/>
+                </div>
+            </div>
+
+            <div class="form-group select">
+                <label>Bonus Mikstury</label>
+                <input name="data.bonus" class="item_input" type="number" data-dtype="Number" placeholder="0" value="{{data.bonus}}"/>
+            </div>
+        </div>
+    </section>
+</form>

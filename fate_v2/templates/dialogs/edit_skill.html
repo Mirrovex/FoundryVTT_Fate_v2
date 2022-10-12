@@ -1,0 +1,31 @@
+<form>
+    <div class="used_skills flexcol grid">
+        <div class="line light flexrow grid">
+            <h4 class="dialog_bonus">+6</h4>
+        </div>
+        <div class="line dark flexrow grid">
+            <h4 class="dialog_bonus">+5</h4>
+        </div>
+        <div class="line light flexrow grid">
+            <h4 class="dialog_bonus">+4</h4>
+        </div>
+        <div class="line dark flexrow grid">
+            <h4 class="dialog_bonus">+3</h4>
+        </div>
+        <div class="line light flexrow grid">
+            <h4 class="dialog_bonus">+2</h4>
+        </div>
+        <div class="line dark flexrow grid">
+            <h4 class="dialog_bonus">+1</h4>
+        </div>
+    </div>
+    <div class="other_skills flexrow grid">
+        {{#each CONFIG.fate_v2.umiejetnosci as |name skill|}}
+        <div class="dialog_skill_name flexrow">
+            <a class="move_skill" data-skill="{{skill}}">
+                <p class="{{skill}}">{{name}}</p>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+</form>
